@@ -1,0 +1,128 @@
+
+material archer_arms
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0
+			diffuse 1 1 1
+			specular 0.0980392 0.0980392 0.0980392 0
+			emissive 0 0 0
+
+			texture_unit
+			{
+				texture ar_ropie_d01_glove.png
+				filtering point point point
+			}
+		}
+	}
+}
+material archer_body
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0
+			diffuse 1 1 1
+			specular 0.0980392 0.0980392 0.0980392 0
+			emissive 0 0 0
+
+			texture_unit
+			{
+				texture ar_ropie_d01_body.png
+				filtering point point point
+			}
+		}
+	}
+}
+material archer_boots
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0
+			diffuse 1 1 1
+			specular 0.0980392 0.0980392 0.0980392 0
+			emissive 0 0 0
+
+			texture_unit
+			{
+				texture ar_ropie_d01_boots.png
+				filtering point point point
+			}
+		}
+	}
+}
+material archer_face
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0
+			diffuse 1 1 1
+			specular 0.0980392 0.0980392 0.0980392 0
+			emissive 0 0 0
+
+			texture_unit
+			{
+				texture ar_head01.png
+				filtering point point point
+			}
+		}
+	}
+}
+material archer_hair
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0
+			diffuse 1 1 1
+			specular 0.423529 0.423529 0.423529 0
+			emissive 0 0 0
+
+			texture_unit
+			{
+				texture ar_hair01_yellow.png
+				filtering point point point
+			}
+		}
+	}
+}
+material archer_legs
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0
+			diffuse 0.509804 0.509804 0.509804
+			specular 0.137255 0.137255 0.137255 20
+			emissive 0 0 0
+
+			texture_unit
+			{
+				texture ar_ropie_d01_leg.png.png
+				filtering point point point
+			}
+		}
+	}
+}
+material default
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0
+			diffuse 0.788235 0.811765 0.690196
+			specular 0.168627 0.168627 0.156863 20
+			emissive 0 0 0
+		}
+	}
+}

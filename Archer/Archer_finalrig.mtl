@@ -1,0 +1,66 @@
+# Wavefront MTL
+# Created by fragMOTION 1.3.5
+# http://www.fragmosoft.com
+
+newmtl archer_arms
+illum 2
+d 1
+ka 0 0 0
+kd 1 1 1
+ks 0.0980392 0.0980392 0.0980392
+ke 0 0 0
+ns 0
+map_kd ar_ropie_d01_glove.png
+newmtl archer_body
+illum 2
+d 1
+ka 0 0 0
+kd 1 1 1
+ks 0.0980392 0.0980392 0.0980392
+ke 0 0 0
+ns 0
+map_kd ar_ropie_d01_body.png
+newmtl archer_boots
+illum 2
+d 1
+ka 0 0 0
+kd 1 1 1
+ks 0.0980392 0.0980392 0.0980392
+ke 0 0 0
+ns 0
+map_kd ar_ropie_d01_boots.png
+newmtl archer_face
+illum 2
+d 1
+ka 0 0 0
+kd 1 1 1
+ks 0.0980392 0.0980392 0.0980392
+ke 0 0 0
+ns 0
+map_kd ar_head01.png
+newmtl archer_hair
+illum 2
+d 1
+ka 0 0 0
+kd 1 1 1
+ks 0.423529 0.423529 0.423529
+ke 0 0 0
+ns 0
+map_kd ar_hair01_yellow.png
+newmtl archer_legs
+illum 2
+d 1
+ka 0 0 0
+kd 0.509804 0.509804 0.509804
+ks 0.137255 0.137255 0.137255
+ke 0 0 0
+ns 20
+map_kd ar_ropie_d01_leg.png.png
+newmtl default
+illum 2
+d 1
+ka 0 0 0
+kd 0.788235 0.811765 0.690196
+ks 0.168627 0.168627 0.156863
+ke 0 0 0
+ns 20
