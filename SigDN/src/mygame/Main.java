@@ -12,8 +12,11 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import com.jme3.animation.*;
+import com.jme3.input.KeyInput;
 import com.jme3.input.controls.ActionListener;
+import com.jme3.input.controls.KeyTrigger;
 import com.jme3.math.FastMath;
+import com.jme3.math.Matrix3f;
 import com.jme3.math.Quaternion;
 import com.jme3.scene.Node;
 
@@ -23,18 +26,26 @@ import com.jme3.scene.Node;
  * @author normenhansen
  */
 public class Main extends SimpleApplication implements
-        AnimEventListener,ActionListener{
+        AnimEventListener{
+    public static Main game;
     private AnimChannel channel;
     private AnimControl control;
     private Geometry geom;
+    Spatial bow;
+    Spatial bow1,bow2;
 
     public static void main(String[] args) {
-        Main app = new Main();
-        app.start();
+        game = new Main();
+        game.start();
     }
 
     @Override
     public void simpleInitApp() {
+        
+        bow1 = (Spatial) assetManager.loadModel("Models/Ar_BigBow_Fire_00/Ar_BigBow_Fire_00.j3o");
+        bow2 = (Spatial) assetManager.loadModel("Models/Smallbow_Mimiyala/Smallbow_Mimiyala.j3o");
+        
+        bow = bow1;
         
         flyCam.setMoveSpeed(20f);
         flyCam.setZoomSpeed(20f);
@@ -54,8 +65,6 @@ public class Main extends SimpleApplication implements
         float scale = 0.05f;
         Archer.scale(scale, scale, scale);
         
-        Spatial bow = (Spatial) assetManager.loadModel("Models/Smallbow_Mimiyala/Smallbow_Mimiyala.j3o");
-        
         
         control = Archer.getControl(AnimControl.class);
         control.addListener(this);
@@ -68,11 +77,15 @@ public class Main extends SimpleApplication implements
         geom = (Geometry)((Node)Archer).getChild(0);
         SkeletonControl skeletonControl = Archer.getControl(SkeletonControl.class);
         
-        Node n = skeletonControl.getAttachmentsNode("Torso");
+        final Node n = skeletonControl.getAttachmentsNode("Torso");
         bow.setLocalTranslation(5.7983f,2.0104f,12.5006f);
-        //bow.setLocalRotation(new Quaternion().fromAngleAxis(FastMath.PI*1f/4, new Vector3f(1,0,0)));
-        bow.setLocalRotation(new Quaternion().fromAngleAxis(FastMath.PI*1f/4, new Vector3f(1,0,0)).mult(
-        new Quaternion().fromAngleAxis(FastMath.PI*3f/2, new Vector3f(0,1,0))));
+        bow.setLocalRotation(new Quaternion().fromAngleAxis(FastMath.PI*(-90f/180), new Vector3f(0,1,0))
+        .mult(new Quaternion().fromAngleAxis(FastMath.PI*(45f/180), new Vector3f(1,0,0)))
+        .mult(new Quaternion().fromAngleAxis(FastMath.PI*(0f/180), new Vector3f(0,0,1)))
+        );
+        //bow.setLocalRotation();
+        //new Quaternion().fromAngleAxis(FastMath.PI*3f/2, new Vector3f(0,1,0))));
+        //bow.setLocalRotation(new Matrix3f());
         //n.set
         n.attachChild(bow);
         //n.setLocalTranslation(5.7983f,99.0104f,12.5006f);
@@ -83,7 +96,30 @@ public class Main extends SimpleApplication implements
         }
         
         rootNode.attachChild(Archer);
-        //rootNode.attachChild(bow);
+        //rootNode.attachChild(bow);        
+        inputManager.addMapping("Swap Weapon",
+                new KeyTrigger(KeyInput.KEY_SPACE));
+    
+        ActionListener actionListener = new ActionListener(){
+            public void onAction(String name, boolean pressed, float tpf){
+                if (pressed) {
+                    n.detachChild(bow);
+                    if (Main.game.bow.equals(Main.game.bow1)) {
+                        Main.game.bow = Main.game.bow2;
+                    } else {
+                        Main.game.bow = Main.game.bow1;
+                    }
+                    bow.setLocalTranslation(5.7983f,2.0104f,12.5006f);
+                    bow.setLocalRotation(new Quaternion().fromAngleAxis(FastMath.PI*(-90f/180), new Vector3f(0,1,0))
+                    .mult(new Quaternion().fromAngleAxis(FastMath.PI*(45f/180), new Vector3f(1,0,0)))
+                    .mult(new Quaternion().fromAngleAxis(FastMath.PI*(0f/180), new Vector3f(0,0,1)))
+                    );
+                    n.attachChild(bow);
+                }
+            }
+        };
+        
+        inputManager.addListener(actionListener, "Swap Weapon");
     }
 
     @Override
@@ -96,24 +132,11 @@ public class Main extends SimpleApplication implements
         //TODO: add render code
     }
 
+    @Override
     public void onAnimCycleDone(AnimControl control, AnimChannel channel, String animName) {
-        if (animName.equals("Dodge")){
-            channel.setAnim("stand", 0.50f);
-            channel.setLoopMode(LoopMode.DontLoop);
-            channel.setSpeed(1f);
-        }
     }
 
+    @Override
     public void onAnimChange(AnimControl control, AnimChannel channel, String animName) {
-    }
-
-    public void onAction(String binding, boolean value, float tpf) {
-        if (binding.equals("Attack") && value){
-            if (!channel.getAnimationName().equals("Dodge")){
-                channel.setAnim("Dodge", 0.50f);
-                channel.setLoopMode(LoopMode.Cycle);
-                channel.setSpeed(0.10f);
-            }
-        }
     }
 }
