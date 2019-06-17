@@ -26,7 +26,7 @@ import com.jme3.scene.Node;
  * @author normenhansen
  */
 public class Main extends SimpleApplication implements
-        AnimEventListener{
+        AnimEventListener, ActionListener{
     public static Main game;
     private AnimChannel channel;
     private AnimControl control;
@@ -61,7 +61,7 @@ public class Main extends SimpleApplication implements
         dl2.setColor(new ColorRGBA(1f, 1f, 1f, 0.5f));
         dl2.setDirection(new Vector3f(0.1f, -0.7f, -1).normalizeLocal());
         rootNode.addLight(dl2);
-        Spatial Archer = (Spatial) assetManager.loadModel("Models/Archer_finalrig/Archer_finalrig.mesh.j3o");
+        Spatial Archer = (Spatial) assetManager.loadModel("Models/Archer_finalrig/Archer_finalrig.j3o");
         float scale = 0.05f;
         Archer.scale(scale, scale, scale);
         
@@ -97,10 +97,10 @@ public class Main extends SimpleApplication implements
         
         rootNode.attachChild(Archer);
         //rootNode.attachChild(bow);        
-        inputManager.addMapping("Swap Weapon",
-                new KeyTrigger(KeyInput.KEY_SPACE));
+        inputManager.addMapping("Combat Stance",
+                new KeyTrigger(KeyInput.KEY_TAB));
     
-        ActionListener actionListener = new ActionListener(){
+        /*ActionListener actionListener = new ActionListener(){
             public void onAction(String name, boolean pressed, float tpf){
                 if (pressed) {
                     n.detachChild(bow);
@@ -117,14 +117,14 @@ public class Main extends SimpleApplication implements
                     n.attachChild(bow);
                 }
             }
-        };
+        };*/
         
-        inputManager.addListener(actionListener, "Swap Weapon");
+        inputManager.addListener(this, "Combat Stance");
     }
 
     @Override
     public void simpleUpdate(float tpf) {
-        //TODO: add update code
+        System.out.println(tpf);
     }
 
     @Override
@@ -138,5 +138,16 @@ public class Main extends SimpleApplication implements
 
     @Override
     public void onAnimChange(AnimControl control, AnimChannel channel, String animName) {
+    }
+
+    @Override
+    public void onAction(String name, boolean isPressed, float tpf) {
+        switch (name) {
+            case "Combat Stance":{
+                if (isPressed) {
+                    //
+                }
+            }break;
+        }
     }
 }
